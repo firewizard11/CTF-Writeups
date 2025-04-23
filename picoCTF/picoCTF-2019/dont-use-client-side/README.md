@@ -6,15 +6,26 @@ Can you break into this super secure portal?
 
 ## Approach
 
-Going to the web page linked in the challenge takes us to the following page
+First I went to the target URL and saw a login page
 
-![Login Page](images/login.png)
+![Login Page](images/landing.png)
 
-Given the title I didn't even try the login I went straight to the page files because I assumed their would be client side validation for this page.
+Given the title, I decided to check for client side validation for this login page. First I opened the Page Source for the login page.
 
-![HTML Source Code](images/source.png)
+![Page Source](images/source.png)
 
-In the HTML for the page I found a JavaScript function called verify that checks the password on the login page for what appears to be the flag but in the wrong order.
+On the login page the text input is given the id `pass` and when we submit the password it calls the verify() function which is defined in the script tags.
 
-If you examine the line: ` if (checkpass.substring(split, split*2) == 'CTF{') {` We can see that it's saying the second part (starting from 0) to the third part so we can just reorder the line to get the correct order of flag which is gives us the flag if we combine them
-.
+![Verify](images/verify.png)
+
+The function basically follows this logic:
+
+1. Get value of "pass"
+2. Split value into section of four
+3. Check sections: 1,7,2,5,4,6,3,8 in that order, against hardcoded strings
+4. If all sections pass "Password Verified"
+5. Otherwise "Incorrect password"
+
+An approach to get the flag is to just reorder the hardcoded strings in the ascending order of the numbers above which should give the flag.
+
+![Flag](images/flag.png)
