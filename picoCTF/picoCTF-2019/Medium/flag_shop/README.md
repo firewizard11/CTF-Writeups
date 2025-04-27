@@ -49,7 +49,7 @@ if(auction_choice == 1){
                 }
 ```
 
-Basically, this is the part of the program that happens when you are buying **Definitely not the flag**. 
+Basically, this is the part of the program that happens when you are buying **Definitely not the flag**.
 
 To exploit this code, we can enter a large enough value for `number_flags` which will make `total_cost` so big that the value wraps around to a negative value.
 
@@ -59,7 +59,7 @@ I did a test run using the input `99999999999` which gave us the following resul
 
 ![Test Payload](images/payload1.png)
 
-It worked!!! 
+It worked!!!
 
 Now we should be able to buy the 1337 flag which gives us the flag.
 
