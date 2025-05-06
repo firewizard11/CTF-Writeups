@@ -18,11 +18,11 @@ Because of this I ran `binwalk flag.png` to see if it would pickup any signature
 
 ![alt text](images/image-1.png)
 
-We can see that the zip archive has one file called `flag.png` and where it starts in the file so we can carve it out. I used the command `dd if=flag.png of=secret.zip bs=1 skip=39739` which gave me the zip archive 
+We can see that the zip archive has one file called `flag.png` and where it starts in the file so we can carve it out. I used the command `dd if=flag.png of=secret.zip bs=1 skip=39739` which gave me the zip archive
 
 ![alt text](images/image-2.png)
 
-Now we can just unzip it to get the file inside 
+Now we can just unzip it to get the file inside.
 
 ![alt text](images/image-3.png)
 
