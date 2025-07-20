@@ -73,6 +73,26 @@ Now I'm going to use **JohnTheRipper** to hopefully get the passphrase. First of
 
 `user.txt` can be found in `john`'s home directory.
 
-### Privilage Escalalation
+### Privilage Escalalation: root
 
-PLACEHOLDER
+I tried going through some typically things like SUID files or sudo permissions but didn't find anything so I went to `/tmp/` and download **LinEnum.sh** from my machine. One line stood out at the end.
+
+![lxd rights??](images/lxd.png)
+
+I really don't know what this means or what lxd is so I need to do some research...
+
+OK so after some research I found out **lxd** is a container and virtual machine manager. Basically there is a common privilage escalation vector where you can create container with root privilages and mount the host filesystem on it. Then you can use the command `lxc exec` to run a command inside the container (i.e. open a shell) which will have root perms inside the container.
+
+Since we don't have access to the internet we need to upload an image to the box from out own machine. In my research I saw people use <https://github.com/saghul/lxd-alpine-builder> because it's very small. It also has instruction for how to import the image into the lxd environment.
+
+![Importing Image](images/import.png)
+
+Might be a bit hard to read but basically I cloned the repo, ran `sudo ./build-alpine` then downloaded the built image into the victim host. After, I imported the image. Now that I have my image `hehehe` I can start and configure the container.
+
+![Creating Container](images/creation.png)
+
+![Starting Container](images/running.png)
+
+Now I can open a shell in the container which should have root permissions to be able to get the flag
+
+![Root Flag](images/root.png)
