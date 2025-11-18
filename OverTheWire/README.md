@@ -2,7 +2,7 @@
 
 ## Description
 
-This folder contains my writeups for the various challenges on <https://overthewire.org/wargames/>
+This folder contains my writeups for the wargames on <https://overthewire.org/wargames/>
 
 ## Table of Contents
 
