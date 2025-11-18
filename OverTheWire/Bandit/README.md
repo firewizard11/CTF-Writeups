@@ -9,3 +9,4 @@ Wargame Link: <https://overthewire.org/wargames/bandit/>
 ## Table of Contents
 
 0. [Level 0](writeups/Level0.md)
+1. [Level 1](writeups/Level1.md)
